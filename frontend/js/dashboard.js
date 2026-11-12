@@ -1,5 +1,10 @@
+const API_BASE_URL =
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api'
+        : 'https://automenager-production.up.railway.app/api';
 
-const API = 'http://localhost:3000/api/dashboard';
+const API = `${API_BASE_URL}/dashboard`;
 
 const moeda = new Intl.NumberFormat('pt-BR', {
     style: 'currency',

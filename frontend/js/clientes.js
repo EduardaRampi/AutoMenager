@@ -1,5 +1,10 @@
+const API_BASE_URL =
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api'
+        : 'https://automenager-production.up.railway.app/api';
 
-const API_URL = 'http://localhost:3000/api/clientes';
+const API_URL = `${API_BASE_URL}/clientes`;
 
 const form = document.getElementById('cliente-form');
 const lista = document.getElementById('clientes-lista');
