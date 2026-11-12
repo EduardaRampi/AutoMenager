@@ -2,9 +2,11 @@
 
 Sistema web de gerenciamento para concessionárias e revendas de veículos.
 
-O **AutoManager** é um projeto desenvolvido para facilitar o gerenciamento de operações de uma loja de veículos, reunindo informações de clientes, funcionários, veículos, estoque e vendas em um único sistema.
+🌐 Acesse o sistema: [AutoManager – Site oficial](https://automanager-opensource.netlify.app/)
+🚀 Versão: 1.1.0-alpha.1
 
-> **Versão atual:** 1.0.0-alpha.1  
+O **AutoManager** é um projeto desenvolvido para facilitar o gerenciamento de operações de uma loja de veículos, reunindo informações de clientes, funcionários, veículos, estoque e vendas em um único sistema.
+  
 > **Status:** Em desenvolvimento.
 
 ## ✨ Funcionalidades

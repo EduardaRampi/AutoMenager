@@ -175,7 +175,23 @@ td {
         grid-template-columns: 1fr;
     }
 
-    main {
-        width: 95%;
+    body {
+        display: block;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+   .main-content {
+        width: 100%;
+        margin: 0;
+        padding: 18px;
     }
 }

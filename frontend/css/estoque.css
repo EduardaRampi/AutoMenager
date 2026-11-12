@@ -315,8 +315,22 @@ textarea {
         grid-column: auto;
     }
 
-    header {
-        align-items: flex-start;
-        flex-direction: column;
+    body {
+        display: block;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+    .main-content {
+        width: 100%;
+        margin: 0;
+        padding: 18px;
     }
 }
