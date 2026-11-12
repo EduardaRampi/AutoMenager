@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AutoManager | Veículos</title>
+
+    <link rel="stylesheet" href="../css/veiculos.css">
+</head>
+
+<body>
+
+   <aside class="sidebar">
+        <div class="logo">
+            <h2>AutoManager</h2>
+            <span>Gestão automotiva</span>
+        </div>
+
+        <nav>
+            <a href="../index.html">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="veiculos.html" class="active">Veículos</a>
+            <a href="estoque.html">Estoque</a>
+            <a href="vendas.html">Vendas</a>
+            <a href="funcionarios.html">Funcionários</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema de gerenciamento
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <section class="form-section">
+
+            <h2 id="form-title">Cadastrar veículo</h2>
+
+            <form id="veiculo-form">
+
+                <input type="hidden" id="veiculo-id">
+
+                <div class="form-grid">
+
+                    <div>
+                        <label for="marca">Marca</label>
+                        <select id="marca" required>
+                            <option value="">Selecione a marca</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="modelo">Modelo</label>
+                        <select id="modelo" required disabled>
+                            <option value="">Selecione o modelo</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="ano">Ano</label>
+                        <input type="number" id="ano" min="1900" max="2100" required>
+                    </div>
+
+                    <div>
+                        <label for="cor">Cor</label>
+                        <input type="text" id="cor" required>
+                    </div>
+
+                    <div>
+                        <label for="quilometragem">Quilometragem</label>
+                        <input type="number" id="quilometragem" min="0" value="0">
+                    </div>
+
+                    <div>
+                        <label for="placa">Placa</label>
+                        <input type="text" id="placa" maxlength="7" required>
+                    </div>
+
+                    <div>
+                        <label for="preco">Preço (R$)</label>
+                        <input type="number" id="preco" min="0.01" step="0.01" required>
+                    </div>
+
+                    <div>
+                        <label for="ponto">Ponto de venda</label>
+                        <select id="ponto" required>
+                            <option value="">Selecione a filial</option>
+                        </select>
+                    </div>
+
+                    <div class="full-width">
+                        <label for="descricao">Descrição</label>
+                        <textarea id="descricao"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" id="btn-salvar">
+                        Cadastrar veículo
+                    </button>
+
+                    <button type="button" id="btn-cancelar" hidden>
+                        Cancelar
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <section class="table-section">
+
+            <h2>Veículos cadastrados</h2>
+
+            <div class="filters">
+
+                <input
+                    type="search"
+                    id="pesquisa"
+                    placeholder="Buscar marca, modelo ou placa..."
+                >
+
+                <select id="filtro-status">
+                    <option value="">Todos os status</option>
+                    <option value="disponivel">Disponível</option>
+                    <option value="reservado">Reservado</option>
+                    <option value="vendido">Vendido</option>
+                </select>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Marca / Modelo</th>
+                            <th>Ano</th>
+                            <th>Cor</th>
+                            <th>Placa</th>
+                            <th>Preço</th>
+                            <th>Filial</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="veiculos-lista"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/veiculos.js"></script>
+
+</body>
+</html>

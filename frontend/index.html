@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AutoManager | Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>AutoManager</h2>
+            <span>Gestão automotiva</span>
+        </div>
+
+        <nav>
+            <a href="index.html" class="active">Dashboard</a>
+            <a href="html/clientes.html">Clientes</a>
+            <a href="html/veiculos.html">Veículos</a>
+            <a href="html/estoque.html">Estoque</a>
+            <a href="html/vendas.html">Vendas</a>
+            <a href="html/funcionarios.html">Funcionários</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema de gerenciamento
+        </div>
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Dashboard</h1>
+                <p>Visão geral da concessionária</p>
+            </div>
+
+            <span class="user">Administrador</span>
+        </header>
+
+
+        <section class="cards">
+
+            <article class="card">
+                <span>Faturamento total</span>
+                <h2 id="faturamento">R$ 0,00</h2>
+                <small>Vendas concluídas</small>
+            </article>
+
+            <article class="card">
+                <span>Veículos disponíveis</span>
+                <h2 id="veiculos">0</h2>
+                <small>Estoque atual</small>
+            </article>
+
+            <article class="card">
+                <span>Clientes cadastrados</span>
+                <h2 id="clientes">0</h2>
+                <small>Base de clientes</small>
+            </article>
+
+            <article class="card">
+                <span>Vendas realizadas</span>
+                <h2 id="vendas">0</h2>
+                <small>Vendas concluídas</small>
+            </article>
+
+        </section>
+
+
+        <section class="charts">
+
+            <article class="chart-card">
+                <h3>Faturamento mensal</h3>
+                <canvas id="graficoFaturamento"></canvas>
+            </article>
+
+            <article class="chart-card">
+                <h3>Vendas por filial</h3>
+                <canvas id="graficoFiliais"></canvas>
+            </article>
+
+        </section>
+
+        <footer>
+            AutoManager © 2026
+        </footer>
+
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+</html>

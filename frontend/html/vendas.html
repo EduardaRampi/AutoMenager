@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoManager | Vendas</title>
+    <link rel="stylesheet" href="../css/vendas.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>AutoManager</h2>
+            <span>Gestão automotiva</span>
+        </div>
+
+        <nav>
+            <a href="../index.html">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="veiculos.html">Veículos</a>
+            <a href="estoque.html">Estoque</a>
+            <a href="vendas.html" class="active">Vendas</a>
+            <a href="funcionarios.html">Funcionários</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema de gerenciamento
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="page-heading">
+            <div>
+                <h1>Vendas</h1>
+                <p>Gerencie as vendas realizadas pela concessionária.</p>
+            </div>
+
+            <button class="btn-primary" id="btn-nova-venda">
+                + Nova venda
+            </button>
+        </header>
+
+        <section class="stats">
+            <article class="stat-card">
+                <span>Total de vendas</span>
+                <strong id="total-vendas">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Vendas concluídas</span>
+                <strong id="vendas-concluidas">0</strong>
+            </article>
+
+            <article class="stat-card">
+                <span>Faturamento</span>
+                <strong id="faturamento">R$ 0,00</strong>
+            </article>
+        </section>
+
+        <!-- FORMULÁRIO DE VENDA -->
+
+        <section class="panel" id="painel-formulario" hidden>
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Registrar nova venda</h2>
+                    <p>Preencha as informações da negociação.</p>
+                </div>
+
+                <button class="btn-light" id="btn-fechar">
+                    Fechar
+                </button>
+            </div>
+
+            <form id="venda-form">
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="cliente_id">Cliente *</label>
+                        <select id="cliente_id" required>
+                            <option value="">Selecione o cliente</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="ponto_id">Filial *</label>
+                        <select id="ponto_id" required>
+                            <option value="">Selecione a filial</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="veiculo_id">Veículo disponível *</label>
+                        <select id="veiculo_id" required>
+                            <option value="">Selecione o veículo</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="funcionario_id">Vendedor responsável *</label>
+                        <select id="funcionario_id" required>
+                            <option value="">Selecione o vendedor</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="valor_venda">Valor da venda (R$) *</label>
+                        <input
+                            type="number"
+                            id="valor_venda"
+                            min="0.01"
+                            step="0.01"
+                            required
+                            placeholder="Ex.: 85000.00"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="forma_pagamento">Forma de pagamento *</label>
+                        <select id="forma_pagamento" required>
+                            <option value="">Selecione</option>
+                            <option value="À vista">À vista</option>
+                            <option value="PIX">PIX</option>
+                            <option value="Dinheiro">Dinheiro</option>
+                            <option value="Cartão de crédito">Cartão de crédito</option>
+                            <option value="Cartão de débito">Cartão de débito</option>
+                            <option value="Financiamento">Financiamento</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="btn-salvar">
+                        Confirmar venda
+                    </button>
+
+                    <button type="button" class="btn-light" id="btn-cancelar">
+                        Cancelar
+                    </button>
+                </div>
+
+                <p id="form-message" class="form-message"></p>
+
+            </form>
+        </section>
+
+        <!-- HISTÓRICO -->
+
+        <section class="panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Histórico de vendas</h2>
+                    <p>Consulte todas as negociações registradas.</p>
+                </div>
+            </div>
+
+            <div class="filters">
+
+                <input
+                    type="search"
+                    id="pesquisa"
+                    placeholder="Buscar cliente, veículo ou placa..."
+                >
+
+                <select id="filtro-filial">
+                    <option value="">Todas as filiais</option>
+                </select>
+
+                <select id="filtro-status">
+                    <option value="">Todos os status</option>
+                    <option value="concluida">Concluídas</option>
+                    <option value="cancelada">Canceladas</option>
+                </select>
+
+                <button class="btn-light" id="btn-atualizar">
+                    Atualizar
+                </button>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Data</th>
+                            <th>Cliente</th>
+                            <th>Veículo</th>
+                            <th>Vendedor</th>
+                            <th>Filial</th>
+                            <th>Valor</th>
+                            <th>Pagamento</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="vendas-lista">
+                        <tr>
+                            <td colspan="9" class="table-message">
+                                Carregando vendas...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <p class="results-count" id="resultados-count"></p>
+
+        </section>
+
+    </main>
+
+    <script src="../js/vendas.js"></script>
+
+</body>
+</html>

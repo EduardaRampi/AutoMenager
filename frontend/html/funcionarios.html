@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoManager | Funcionários</title>
+    <link rel="stylesheet" href="../css/funcionarios.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>AutoManager</h2>
+            <span>Gestão automotiva</span>
+        </div>
+        <nav>
+            <a href="../index.html">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="veiculos.html">Veículos</a>
+            <a href="estoque.html">Estoque</a>
+            <a href="vendas.html">Vendas</a>
+            <a href="funcionarios.html" class="active">Funcionários</a>
+        </nav>
+        <div class="sidebar-footer">Sistema de gerenciamento</div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-heading">
+            <div>
+                <h1>Funcionários</h1>
+                <p>Cadastre e gerencie a equipe de cada ponto de venda.</p>
+            </div>
+            <button type="button" class="btn-primary" id="btn-novo">+ Novo funcionário</button>
+        </header>
+
+        <section class="stats" aria-label="Resumo de funcionários">
+            <article class="stat-card"><span>Total cadastrados</span><strong id="total-funcionarios">0</strong></article>
+            <article class="stat-card"><span>Ativos</span><strong id="total-ativos">0</strong></article>
+            <article class="stat-card"><span>Inativos</span><strong id="total-inativos">0</strong></article>
+        </section>
+
+        <section class="panel" id="painel-formulario" hidden>
+            <div class="panel-heading">
+                <div><h2 id="form-title">Cadastrar funcionário</h2><p>Preencha os dados abaixo.</p></div>
+                <button type="button" class="btn-light" id="btn-fechar">Fechar</button>
+            </div>
+            <form id="funcionario-form">
+                <input type="hidden" id="funcionario-id">
+                <div class="form-grid">
+                    <div class="field field-wide">
+                        <label for="nome">Nome completo *</label>
+                        <input id="nome" name="nome" type="text" maxlength="120" required placeholder="Nome do funcionário">
+                    </div>
+                    <div class="field">
+                        <label for="cpf">CPF</label>
+                        <input id="cpf" name="cpf" type="text" inputmode="numeric" maxlength="11" pattern="[0-9]{11}" placeholder="Somente números">
+                    </div>
+                    <div class="field">
+                        <label for="cargo">Cargo</label>
+                        <input id="cargo" name="cargo" type="text" maxlength="60" placeholder="Ex.: Vendedor(a)">
+                    </div>
+                    <div class="field">
+                        <label for="email">E-mail</label>
+                        <input id="email" name="email" type="email" maxlength="120" placeholder="nome@email.com">
+                    </div>
+                    <div class="field">
+                        <label for="telefone">Telefone</label>
+                        <input id="telefone" name="telefone" type="tel" maxlength="20" placeholder="(00) 00000-0000">
+                    </div>
+                    <div class="field">
+                        <label for="ponto_id">Ponto de venda *</label>
+                        <select id="ponto_id" name="ponto_id" required><option value="">Carregando filiais...</option></select>
+                    </div>
+                    <div class="field" id="status-field" hidden>
+                        <label for="status">Status</label>
+                        <select id="status" name="status"><option value="ativo">Ativo</option><option value="inativo">Inativo</option></select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="btn-salvar">Cadastrar funcionário</button>
+                    <button type="button" class="btn-light" id="btn-cancelar">Cancelar</button>
+                </div>
+                <p class="form-message" id="form-message" role="status"></p>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading list-heading">
+                <div><h2>Equipe cadastrada</h2><p>Pesquise, filtre, edite ou desative funcionários.</p></div>
+            </div>
+            <div class="filters">
+                <input type="search" id="pesquisa" placeholder="Buscar por nome ou CPF..." aria-label="Buscar funcionário">
+                <select id="filtro-filial" aria-label="Filtrar por filial"><option value="">Todas as filiais</option></select>
+                <select id="filtro-status" aria-label="Filtrar por status"><option value="">Todos os status</option><option value="ativo">Ativos</option><option value="inativo">Inativos</option></select>
+                <button type="button" class="btn-light" id="btn-atualizar">Atualizar</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>ID</th><th>Nome</th><th>CPF</th><th>Contato</th><th>Cargo</th><th>Ponto de venda</th><th>Status</th><th>Ações</th></tr></thead>
+                    <tbody id="funcionarios-lista"><tr><td colspan="8" class="table-message">Carregando funcionários...</td></tr></tbody>
+                </table>
+            </div>
+            <p class="results-count" id="resultados-count"></p>
+        </section>
+    </main>
+    <script src="../js/funcionarios.js"></script>
+</body>
+</html>

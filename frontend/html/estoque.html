@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AutoManager | Estoque</title>
+
+    <link rel="stylesheet" href="../css/estoque.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>AutoManager</h2>
+            <span>Gestão automotiva</span>
+        </div>
+
+        <nav>
+            <a href="../index.html">Dashboard</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="veiculos.html">Veículos</a>
+            <a href="estoque.html" class="active">Estoque</a>
+            <a href="vendas.html">Vendas</a>
+            <a href="funcionarios.html">Funcionários</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Sistema de gerenciamento
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <section class="page-heading">
+            <div>
+                <h2>Controle de estoque</h2>
+                <p>Gerencie os veículos e suas localizações.</p>
+            </div>
+
+            <button id="btn-atualizar">Atualizar dados</button>
+        </section>
+
+
+        <!-- RESUMO DAS FILIAIS -->
+
+        <section>
+            <h3>Estoque por filial</h3>
+
+            <div id="cards-filiais" class="cards-filiais">
+                <p>Carregando filiais...</p>
+            </div>
+        </section>
+
+
+        <!-- INDICADORES GERAIS -->
+
+        <section>
+            <h3>Resumo geral</h3>
+
+            <div class="cards-resumo">
+
+                <article class="card">
+                    <span>Total em estoque</span>
+                    <strong id="total-veiculos">0</strong>
+                </article>
+
+                <article class="card">
+                    <span>Disponíveis</span>
+                    <strong id="total-disponiveis">0</strong>
+                </article>
+
+                <article class="card">
+                    <span>Reservados</span>
+                    <strong id="total-reservados">0</strong>
+                </article>
+
+                <article class="card">
+                    <span>Vendidos</span>
+                    <strong id="total-vendidos">0</strong>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- LISTAGEM DE VEÍCULOS -->
+
+        <section class="panel">
+
+            <h3>Veículos em estoque</h3>
+
+            <div class="filters">
+
+                <input
+                    type="search"
+                    id="pesquisa"
+                    placeholder="Pesquisar marca, modelo ou placa..."
+                >
+
+                <select id="filtro-filial">
+                    <option value="">Todas as filiais</option>
+                </select>
+
+                <select id="filtro-status">
+                    <option value="">Todos os status</option>
+                    <option value="disponivel">Disponível</option>
+                    <option value="reservado">Reservado</option>
+                    <option value="vendido">Vendido</option>
+                </select>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Veículo</th>
+                            <th>Ano</th>
+                            <th>Placa</th>
+                            <th>Quilometragem</th>
+                            <th>Preço</th>
+                            <th>Filial</th>
+                            <th>Status</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="estoque-lista">
+                        <tr>
+                            <td colspan="9">Carregando estoque...</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRANSFERÊNCIA -->
+
+        <section class="panel">
+
+            <h3>Transferir veículo</h3>
+
+            <p class="descricao">
+                Escolha um veículo disponível e selecione a filial de destino.
+            </p>
+
+            <form id="form-transferencia">
+
+                <div class="form-grid">
+
+                    <div>
+                        <label for="veiculo-transferencia">
+                            Veículo
+                        </label>
+
+                        <select id="veiculo-transferencia" required>
+                            <option value="">Selecione um veículo</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="filial-destino">
+                            Filial de destino
+                        </label>
+
+                        <select id="filial-destino" required>
+                            <option value="">Selecione uma filial</option>
+                        </select>
+                    </div>
+
+                    <div class="full-width">
+                        <label for="observacao">
+                            Observação
+                        </label>
+
+                        <textarea
+                            id="observacao"
+                            maxlength="255"
+                            placeholder="Ex.: Redistribuição de estoque"
+                        ></textarea>
+                    </div>
+
+                </div>
+
+                <button type="submit" id="btn-transferir">
+                    Realizar transferência
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- HISTÓRICO -->
+
+        <section class="panel">
+
+            <h3>Histórico de movimentações</h3>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Veículo</th>
+                            <th>Placa</th>
+                            <th>Origem</th>
+                            <th>Destino</th>
+                            <th>Data</th>
+                            <th>Observação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="historico-lista">
+                        <tr>
+                            <td colspan="7">Carregando histórico...</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/estoque.js"></script>
+
+</body>
+</html>
