@@ -1,4 +1,10 @@
-const API_URL = 'http://localhost:3000/api/funcionarios';
+const API_BASE_URL =
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api'
+        : 'https://automenager-production.up.railway.app/api';
+
+const API_URL = `${API_BASE_URL}/funcionarios`;
 const PONTOS_URL = `${API_URL}/pontos`;
 
 const form = document.getElementById('funcionario-form');
