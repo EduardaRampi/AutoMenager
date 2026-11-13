@@ -5,6 +5,15 @@
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(23, 37, 84);
+    border-radius: 4px;
+}
+
+
 body {
     font-family: Arial, sans-serif;
     background: #f1f3f6;
@@ -222,6 +231,218 @@ td {
     background: #fee2e2;
     color: #991b1b;
 }
+
+
+/* =====================================
+   MODAL DE VISUALIZAÇÃO DO VEÍCULO
+===================================== */
+
+#visualizar-dialog {
+    width: min(650px, calc(100% - 30px));
+    max-height: 85vh;
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-radius: 16px;
+    overflow: auto;
+    color: #1e293b;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+#visualizar-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+}
+
+.modal-header {
+    background: #172554;
+    color: white;
+    padding: 25px;
+}
+
+.modal-header h2 {
+    margin: 0 0 6px;
+    font-size: 23px;
+}
+
+.modal-header p {
+    color: #bfdbfe;
+    font-size: 13px;
+}
+
+#visualizar-conteudo {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.info-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 13px;
+    min-width: 0;
+}
+
+.info-card span {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.info-card strong {
+    display: block;
+    color: #1e293b;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.info-card.destaque {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+.info-card.preco strong {
+    color: #1d4ed8;
+    font-size: 19px;
+}
+
+.info-card.descricao {
+    grid-column: 1 / -1;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    background: #fff;
+}
+
+#btn-fechar-visualizacao {
+    background: #172554;
+    padding: 11px 25px;
+    border-radius: 8px;
+}
+
+#btn-fechar-visualizacao:hover {
+    background: #2563eb;
+    opacity: 1;
+}
+
+/* Diálogos */
+.cadastro-dialog {
+    width: min(480px, calc(100% - 30px));
+    max-height: 85vh;
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-radius: 15px;
+    color: #1e293b;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    overflow-y: auto;
+}
+
+.cadastro-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+}
+
+.dialog-header {
+    background: #172554;
+    color: white;
+    padding: 23px;
+}
+
+.dialog-header h2 {
+    margin: 0 0 7px;
+    font-size: 22px;
+}
+
+.dialog-header p {
+    color: #bfdbfe;
+    font-size: 13px;
+}
+
+.dialog-body {
+    padding: 23px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.dialog-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.dialog-field label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.dialog-field input,
+.dialog-field select {
+    width: 100%;
+    min-height: 42px;
+}
+
+.dialog-footer {
+    padding: 16px 23px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: #f8fafc;
+}
+
+.dialog-footer .btn-fechar {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.dialog-footer .btn-fechar:hover {
+    background: #cbd5e1;
+    opacity: 1;
+}
+
+.dialog-message {
+    font-size: 13px;
+    color: #b91c1c;
+}
+
+.dialog-message.success {
+    color: #15803d;
+}
+
+
+@media (max-width: 500px) {
+    #visualizar-conteudo {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .info-card.descricao {
+        grid-column: auto;
+    }
+
+    .modal-header {
+        padding: 20px;
+    }
+
+    .dialog-header,
+    .dialog-body {
+        padding: 18px;
+    }
+
+    .dialog-footer {
+        padding: 14px 18px;
+    }
+}
+
 
 @media (max-width: 650px) {
     .form-grid {

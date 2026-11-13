@@ -12,6 +12,14 @@ body {
     display: flex;
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(23, 37, 84);
+    border-radius: 4px;
+}
+
 /* SIDEBAR */
 
 .sidebar {

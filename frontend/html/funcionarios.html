@@ -29,13 +29,53 @@
                 <h1>Funcionários</h1>
                 <p>Cadastre e gerencie a equipe de cada ponto de venda.</p>
             </div>
-            <button type="button" class="btn-primary" id="btn-novo">+ Novo funcionário</button>
+            <div class="header-actions">
+                <button type="button" class="btn-light" id="btn-nova-filial">+ Nova filial</button>
+                <button type="button" class="btn-primary" id="btn-novo">+ Novo funcionário</button>
+            </div>
         </header>
 
         <section class="stats" aria-label="Resumo de funcionários">
             <article class="stat-card"><span>Total cadastrados</span><strong id="total-funcionarios">0</strong></article>
             <article class="stat-card"><span>Ativos</span><strong id="total-ativos">0</strong></article>
             <article class="stat-card"><span>Inativos</span><strong id="total-inativos">0</strong></article>
+        </section>
+
+        <section class="panel" id="painel-filial" hidden>
+            <div class="panel-heading">
+                <div>
+                    <h2>Nova filial</h2>
+                    <p>Preencha os dados da nova unidade.</p>
+                </div>
+                <button type="button" class="btn-light" id="btn-fechar-filial">Fechar</button>
+            </div>
+
+            <form id="filial-form">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="filial-nome">Nome da filial *</label>
+                        <input id="filial-nome" type="text" maxlength="100"
+                            required placeholder="Ex.: AutoManager Centro">
+                    </div>
+
+                    <div class="field">
+                        <label for="filial-endereco">Endereço *</label>
+                        <input id="filial-endereco" type="text" maxlength="255"
+                            required placeholder="Rua, número, cidade">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="btn-salvar-filial">
+                        Cadastrar filial
+                    </button>
+                    <button type="button" class="btn-light" id="btn-cancelar-filial">
+                        Cancelar
+                    </button>
+                </div>
+
+                <p class="form-message" id="filial-message" role="status"></p>
+            </form>
         </section>
 
         <section class="panel" id="painel-formulario" hidden>

@@ -100,6 +100,48 @@ router.get('/pontos', async (req, res) => {
 });
 
 // =====================================
+// CADASTRAR NOVA FILIAL
+// =====================================
+
+router.post('/pontos', async (req, res) => {
+    try {
+        const { nome, endereco } = req.body;
+
+        if (!nome || !nome.trim() || !endereco || !endereco.trim()) {
+            return res.status(400).json({
+                message: 'Informe o nome e o endereço da filial.'
+            });
+        }
+
+        const [resultado] = await db.execute(`
+            INSERT INTO pontos_venda (nome, endereco, status)
+            VALUES (?, ?, 'ativo')
+        `, [
+            nome.trim(),
+            endereco.trim()
+        ]);
+
+        res.status(201).json({
+            message: 'Filial cadastrada com sucesso!',
+            ponto_id: resultado.insertId
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({
+                message: 'Esta filial já está cadastrada.'
+            });
+        }
+
+        res.status(500).json({
+            message: 'Erro ao cadastrar filial.'
+        });
+    }
+});
+
+// =====================================
 // BUSCAR FUNCIONÁRIO POR ID
 // =====================================
 

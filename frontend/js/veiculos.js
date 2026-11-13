@@ -19,6 +19,19 @@ const filtroStatus = document.getElementById('filtro-status');
 
 const btnSalvar = document.getElementById('btn-salvar');
 const btnCancelar = document.getElementById('btn-cancelar');
+const btnNovaMarca = document.getElementById('btn-nova-marca');
+const btnNovoModelo = document.getElementById('btn-novo-modelo');
+
+const visualizarDialog = document.getElementById('visualizar-dialog');
+const visualizarConteudo = document.getElementById('visualizar-conteudo');
+const btnFecharVisualizacao = document.getElementById('btn-fechar-visualizacao');
+const dialogMarca = document.getElementById('dialog-marca');
+const dialogModelo = document.getElementById('dialog-modelo');
+
+const formMarca = document.getElementById('form-marca');
+const formModelo = document.getElementById('form-modelo');
+
+const modeloMarcaSelect = document.getElementById('modelo-marca');
 
 let veiculos = [];
 let modelos = [];
@@ -133,6 +146,7 @@ async function carregarVeiculos() {
 
 function renderizarVeiculos(dados) {
     lista.replaceChildren();
+    
 
     if (dados.length === 0) {
         const tr = document.createElement('tr');
@@ -199,7 +213,16 @@ function renderizarVeiculos(dados) {
                 excluirVeiculo(veiculo.veiculo_id);
             });
 
-            tdAcoes.append(editar, excluir);
+            const visualizar = document.createElement('button');
+
+            visualizar.textContent = 'Visualizar';
+            visualizar.className = 'btn-visualizar';
+
+            visualizar.addEventListener('click', () => {
+                visualizarVeiculo(veiculo.veiculo_id);
+            });
+
+            tdAcoes.append(editar, excluir, visualizar);
 
         } else {
             tdAcoes.textContent = 'Venda registrada';
@@ -260,6 +283,67 @@ form.addEventListener('submit', async event => {
         console.error(error);
         alert(error.message);
     }
+});
+
+// =====================================
+// VISUALIZAR VEÍCULO
+// =====================================
+
+
+function visualizarVeiculo(id) {
+    const veiculo = veiculos.find(
+        item => Number(item.veiculo_id) === Number(id)
+    );
+
+    if (!veiculo) return;
+
+    const titulo = document.getElementById('modal-titulo');
+
+    titulo.textContent = `${veiculo.marca} ${veiculo.modelo}`;
+
+    visualizarConteudo.replaceChildren();
+
+    const informacoes = [
+        ['Identificação', `#${veiculo.veiculo_id}`, 'destaque'],
+        ['Marca', veiculo.marca],
+        ['Origem da marca', veiculo.marca_origem || 'Não informada'],
+        ['Modelo', veiculo.modelo],
+        ['Motor', veiculo.motor],
+        ['Transmissão', veiculo.transmissao],
+        ['Combustível', veiculo.combustivel],
+        ['Ano', veiculo.ano],
+        ['Cor', veiculo.cor],
+        ['Quilometragem', `${veiculo.quilometragem} km`],
+        ['Placa', veiculo.placa, 'destaque'],
+        ['Preço', Number(veiculo.preco).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }), 'preco'],
+        ['Filial', veiculo.ponto_venda || 'Sem filial'],
+        ['Status', veiculo.status, 'destaque'],
+        ['Descrição', veiculo.descricao || 'Sem descrição', 'descricao']
+    ];
+
+    informacoes.forEach(([titulo, valor, classe = '']) => {
+        const card = document.createElement('div');
+        card.className = `info-card ${classe}`;
+
+        const label = document.createElement('span');
+        label.textContent = titulo;
+
+        const conteudo = document.createElement('strong');
+        conteudo.textContent = valor;
+
+        card.append(label, conteudo);
+        visualizarConteudo.appendChild(card);
+    });
+
+    visualizarDialog.showModal();
+}
+
+
+btnFecharVisualizacao.addEventListener('click', () => {
+    visualizarDialog.close();
 });
 
 
@@ -394,6 +478,147 @@ pesquisa.addEventListener('input', () => {
 
 filtroStatus.addEventListener('change', carregarVeiculos);
 
+// =====================================
+// CADASTRAR MARCA
+// =====================================
+
+document.getElementById('btn-nova-marca').addEventListener('click', () => {
+    formMarca.reset();
+    document.getElementById('mensagem-marca').textContent = '';
+    dialogMarca.showModal();
+});
+
+document.getElementById('fechar-marca').addEventListener('click', () => {
+    dialogMarca.close();
+});
+
+formMarca.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const botao = document.getElementById('salvar-marca');
+    const mensagem = document.getElementById('mensagem-marca');
+
+    const dados = {
+        nome: document.getElementById('marca-nome').value.trim(),
+        origem: document.getElementById('marca-origem').value.trim()
+    };
+
+    botao.disabled = true;
+    mensagem.textContent = '';
+
+    try {
+        const response = await fetch(`${API}/marcas`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+
+        const resultado = await response.json();
+
+        if (!response.ok) {
+            throw new Error(resultado.message);
+        }
+
+        await carregarOpcoes();
+
+        marcaSelect.value = resultado.marca_id;
+        carregarModelos(resultado.marca_id);
+
+        mensagem.textContent = resultado.message;
+        mensagem.classList.add('success');
+
+        setTimeout(() => dialogMarca.close(), 700);
+
+    } catch (error) {
+        mensagem.textContent = error.message;
+        mensagem.classList.remove('success');
+    } finally {
+        botao.disabled = false;
+    }
+});
+
+
+// =====================================
+// CADASTRAR MODELO
+// =====================================
+
+document.getElementById('btn-novo-modelo').addEventListener('click', () => {
+    if (!marcaSelect.value) {
+        alert('Selecione uma marca antes de cadastrar um modelo.');
+        return;
+    }
+
+    formModelo.reset();
+
+    modeloMarcaSelect.replaceChildren(
+        new Option('Selecione a marca', '')
+    );
+
+    marcas.forEach(marca => {
+        modeloMarcaSelect.add(
+            new Option(marca.nome, marca.marca_id)
+        );
+    });
+
+    modeloMarcaSelect.value = marcaSelect.value;
+
+    document.getElementById('mensagem-modelo').textContent = '';
+    dialogModelo.showModal();
+});
+
+document.getElementById('fechar-modelo').addEventListener('click', () => {
+    dialogModelo.close();
+});
+
+formModelo.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const botao = document.getElementById('salvar-modelo');
+    const mensagem = document.getElementById('mensagem-modelo');
+
+    const marcaId = Number(modeloMarcaSelect.value);
+
+    const dados = {
+        modelo: document.getElementById('modelo-nome').value.trim(),
+        marca_id: marcaId,
+        motor: document.getElementById('modelo-motor').value.trim(),
+        transmissao: document.getElementById('modelo-transmissao').value,
+        combustivel: document.getElementById('modelo-combustivel').value
+    };
+
+    botao.disabled = true;
+    mensagem.textContent = '';
+
+    try {
+        const response = await fetch(`${API}/modelos`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+
+        const resultado = await response.json();
+
+        if (!response.ok) {
+            throw new Error(resultado.message);
+        }
+
+        await carregarOpcoes();
+
+        marcaSelect.value = marcaId;
+        carregarModelos(marcaId, resultado.modelo_id);
+
+        mensagem.textContent = resultado.message;
+        mensagem.classList.add('success');
+
+        setTimeout(() => dialogModelo.close(), 700);
+
+    } catch (error) {
+        mensagem.textContent = error.message;
+        mensagem.classList.remove('success');
+    } finally {
+        botao.disabled = false;
+    }
+});
 
 // =====================================
 // INICIALIZAR

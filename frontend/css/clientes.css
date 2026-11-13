@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(23, 37, 84);
+    border-radius: 4px;
+}
+
 body {
     font-family: Arial, sans-serif;
     background: #f1f3f6;

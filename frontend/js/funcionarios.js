@@ -17,12 +17,36 @@ const filtroStatus = document.getElementById('filtro-status');
 const selectPonto = document.getElementById('ponto_id');
 const formMessage = document.getElementById('form-message');
 
+const painelFilial = document.getElementById('painel-filial');
+const filialForm = document.getElementById('filial-form');
+const filialMessage = document.getElementById('filial-message');
+const btnSalvarFilial = document.getElementById('btn-salvar-filial');
+
 let funcionarios = [];
 let pontos = [];
 
 function mostrarMensagem(mensagem, sucesso = false) {
     formMessage.textContent = mensagem;
     formMessage.classList.toggle('success', sucesso);
+}
+
+function mostrarMensagemFilial(mensagem, sucesso = false) {
+    filialMessage.textContent = mensagem;
+    filialMessage.classList.toggle('success', sucesso);
+}
+
+function abrirFormularioFilial() {
+    filialForm.reset();
+    mostrarMensagemFilial('');
+    painelFilial.hidden = false;
+    painelFormulario.hidden = true;
+    painelFilial.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function fecharFormularioFilial() {
+    painelFilial.hidden = true;
+    filialForm.reset();
+    mostrarMensagemFilial('');
 }
 
 async function requisicao(url, options = {}) {
@@ -213,6 +237,50 @@ let temporizadorPesquisa;
 filtroPesquisa.addEventListener('input', () => {
     clearTimeout(temporizadorPesquisa);
     temporizadorPesquisa = setTimeout(carregarFuncionarios, 250);
+});
+
+document.getElementById('btn-nova-filial').addEventListener('click', abrirFormularioFilial);
+document.getElementById('btn-fechar-filial').addEventListener('click', fecharFormularioFilial);
+document.getElementById('btn-cancelar-filial').addEventListener('click', fecharFormularioFilial);
+filialForm.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const dados = {
+        nome: document.getElementById('filial-nome').value.trim(),
+        endereco: document.getElementById('filial-endereco').value.trim()
+    };
+
+    if (!dados.nome || !dados.endereco) {
+        mostrarMensagemFilial('Preencha o nome e o endereço da filial.');
+        return;
+    }
+
+    btnSalvarFilial.disabled = true;
+
+    try {
+        const resultado = await requisicao(PONTOS_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+
+        mostrarMensagemFilial(resultado.message, true);
+
+        await carregarPontos();
+
+        if (resultado.ponto_id) {
+            selectPonto.value = resultado.ponto_id;
+        }
+
+        await carregarFuncionarios();
+
+        setTimeout(fecharFormularioFilial, 900);
+
+    } catch (error) {
+        mostrarMensagemFilial(error.message);
+    } finally {
+        btnSalvarFilial.disabled = false;
+    }
 });
 
 async function iniciar() {

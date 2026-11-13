@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
                 v.veiculo_id,
                 v.modelo_id,
                 ma.nome AS marca,
+                ma.origem AS marca_origem,
                 mo.modelo,
                 mo.motor,
                 mo.transmissao,
@@ -117,6 +118,112 @@ router.get('/opcoes', async (req, res) => {
 
         res.status(500).json({
             message: 'Erro ao carregar marcas e modelos.'
+        });
+    }
+});
+
+// =====================================
+// CADASTRAR MARCA
+// =====================================
+
+router.post('/marcas', async (req, res) => {
+    try {
+        const { nome, origem } = req.body;
+
+        if (!nome || !nome.trim()) {
+            return res.status(400).json({
+                message: 'Informe o nome da marca.'
+            });
+        }
+
+        const [resultado] = await db.execute(
+            `INSERT INTO marcas (nome, origem)
+             VALUES (?, ?)`,
+            [nome.trim(), origem?.trim() || null]
+        );
+
+        res.status(201).json({
+            message: 'Marca cadastrada com sucesso!',
+            marca_id: resultado.insertId
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({
+                message: 'Esta marca já está cadastrada.'
+            });
+        }
+
+        res.status(500).json({
+            message: 'Erro ao cadastrar marca.'
+        });
+    }
+});
+
+
+// =====================================
+// CADASTRAR MODELO
+// =====================================
+
+router.post('/modelos', async (req, res) => {
+    try {
+        const {
+            modelo,
+            marca_id,
+            transmissao,
+            combustivel,
+            motor
+        } = req.body;
+
+        if (
+            !modelo?.trim() ||
+            !marca_id ||
+            !transmissao?.trim() ||
+            !combustivel?.trim() ||
+            !motor?.trim()
+        ) {
+            return res.status(400).json({
+                message: 'Preencha todos os campos do modelo.'
+            });
+        }
+
+        const [resultado] = await db.execute(
+            `INSERT INTO modelos
+             (modelo, marca_id, transmissao, combustivel, motor)
+             VALUES (?, ?, ?, ?, ?)`,
+            [
+                modelo.trim(),
+                marca_id,
+                transmissao.trim(),
+                combustivel.trim(),
+                motor.trim()
+            ]
+        );
+
+        res.status(201).json({
+            message: 'Modelo cadastrado com sucesso!',
+            modelo_id: resultado.insertId
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({
+                message: 'Este modelo já está cadastrado para essa marca.'
+            });
+        }
+
+        if (error.code === 'ER_NO_REFERENCED_ROW_2') {
+            return res.status(400).json({
+                message: 'A marca selecionada não existe.'
+            });
+        }
+
+        res.status(500).json({
+            message: 'Erro ao cadastrar modelo.'
         });
     }
 });

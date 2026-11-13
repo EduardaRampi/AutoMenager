@@ -50,6 +50,7 @@
                         <select id="marca" required>
                             <option value="">Selecione a marca</option>
                         </select>
+                        <button type="button" id="btn-nova-marca" class="btn-adicionar">+ Nova marca</button>
                     </div>
 
                     <div>
@@ -57,6 +58,7 @@
                         <select id="modelo" required disabled>
                             <option value="">Selecione o modelo</option>
                         </select>
+                        <button type="button" id="btn-novo-modelo" class="btn-adicionar">+ Novo modelo</button>
                     </div>
 
                     <div>
@@ -159,6 +161,121 @@
             </div>
 
         </section>
+
+        
+        <dialog id="visualizar-dialog">
+
+            <div class="modal-header">
+                <h2 id="modal-titulo">Detalhes do veículo</h2>
+                <p>Informações completas do veículo cadastrado</p>
+            </div>
+
+            <div id="visualizar-conteudo"></div>
+
+            <div class="modal-footer">
+                <button type="button" id="btn-fechar-visualizacao">
+                    Fechar
+                </button>
+            </div>
+
+        </dialog>
+
+        <!-- DIÁLOGO: NOVA MARCA -->
+        <dialog id="dialog-marca" class="cadastro-dialog">
+            <div class="dialog-header">
+                <h2>Nova marca</h2>
+                <p>Cadastre uma nova fabricante de veículos.</p>
+            </div>
+
+            <form id="form-marca">
+                <div class="dialog-body">
+                    <div class="dialog-field">
+                        <label for="marca-nome">Nome da marca *</label>
+                        <input type="text" id="marca-nome" required
+                            maxlength="100" placeholder="Ex.: Toyota">
+                    </div>
+
+                    <div class="dialog-field">
+                        <label for="marca-origem">País de origem</label>
+                        <input type="text" id="marca-origem"
+                            maxlength="100" placeholder="Ex.: Japão">
+                    </div>
+
+                    <p class="dialog-message" id="mensagem-marca"></p>
+                </div>
+
+                <div class="dialog-footer">
+                    <button type="button" class="btn-fechar"
+                            id="fechar-marca">Cancelar</button>
+                    <button type="submit" id="salvar-marca">Cadastrar marca</button>
+                </div>
+            </form>
+        </dialog>
+
+
+        <!-- DIÁLOGO: NOVO MODELO -->
+        <dialog id="dialog-modelo" class="cadastro-dialog">
+            <div class="dialog-header">
+                <h2>Novo modelo</h2>
+                <p>Informe as características do modelo do veículo.</p>
+            </div>
+
+            <form id="form-modelo">
+                <div class="dialog-body">
+                    <div class="dialog-field">
+                        <label for="modelo-marca">Marca *</label>
+                        <select id="modelo-marca" required>
+                            <option value="">Selecione a marca</option>
+                        </select>
+                    </div>
+
+                    <div class="dialog-field">
+                        <label for="modelo-nome">Nome do modelo *</label>
+                        <input type="text" id="modelo-nome" required
+                            maxlength="100" placeholder="Ex.: Corolla">
+                    </div>
+
+                    <div class="dialog-field">
+                        <label for="modelo-motor">Motor *</label>
+                        <input type="text" id="modelo-motor" required
+                            maxlength="50" placeholder="Ex.: 2.0">
+                    </div>
+
+                    <div class="dialog-field">
+                        <label for="modelo-transmissao">Transmissão *</label>
+                        <select id="modelo-transmissao" required>
+                            <option value="">Selecione</option>
+                            <option value="Manual">Manual</option>
+                            <option value="Automática">Automática</option>
+                            <option value="CVT">CVT</option>
+                            <option value="Automatizada">Automatizada</option>
+                        </select>
+                    </div>
+
+                    <div class="dialog-field">
+                        <label for="modelo-combustivel">Combustível *</label>
+                        <select id="modelo-combustivel" required>
+                            <option value="">Selecione</option>
+                            <option value="Gasolina">Gasolina</option>
+                            <option value="Etanol">Etanol</option>
+                            <option value="Flex">Flex</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Elétrico">Elétrico</option>
+                            <option value="Híbrido">Híbrido</option>
+                        </select>
+                    </div>
+
+                    <p class="dialog-message" id="mensagem-modelo"></p>
+                </div>
+
+                <div class="dialog-footer">
+                    <button type="button" class="btn-fechar"
+                            id="fechar-modelo">Cancelar</button>
+                    <button type="submit" id="salvar-modelo">Cadastrar modelo</button>
+                </div>
+            </form>
+        </dialog>
+
 
     </main>
 

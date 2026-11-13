@@ -19,3 +19,6 @@ desktop.ini
 # Arquivos temporários
 *.tmp
 *.temp
+
+# Outros
+executar.txt
