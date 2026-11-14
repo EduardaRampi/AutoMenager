@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoManager | PDV</title>
+  <link rel="stylesheet" href="../css/pdv.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo"><h2>AutoManager</h2><span>Gestão automotiva</span></div>
+    <nav>
+      <a href="../index.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="veiculos.html">Veículos</a>
+      <a href="estoque.html">Estoque</a>
+      <a href="pdv.html" class="active">PDV</a>
+      <a href="vendas.html">Vendas</a>
+      <a href="funcionarios.html">Funcionários</a>
+    </nav>
+    <div class="sidebar-footer">Sistema de gerenciamento</div>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-heading">
+      <div><h1>Ponto de venda</h1><p>Selecione o veículo e registre a negociação.</p></div>
+      <a class="btn-light link-button" href="vendas.html">Ver histórico de vendas</a>
+    </header>
+
+    <div class="pdv-layout">
+      <section class="panel sale-panel">
+        <div class="section-title"><span class="step">1</span><div><h2>Dados da venda</h2><p>Defina a filial, o vendedor e o cliente.</p></div></div>
+        <div class="field">
+          <label for="ponto_id">Filial *</label>
+          <select id="ponto_id" required><option value="">Carregando filiais...</option></select>
+        </div>
+        <div class="field">
+          <label for="funcionario_id">Vendedor responsável *</label>
+          <select id="funcionario_id" required disabled><option value="">Selecione a filial primeiro</option></select>
+        </div>
+        <div class="field">
+          <label for="cliente_id">Cliente *</label>
+          <select id="cliente_id" required><option value="">Carregando clientes...</option></select>
+        </div>
+
+        <div class="section-title vehicle-title"><span class="step">2</span><div><h2>Veículo</h2><p>Escolha um veículo disponível nesta filial.</p></div></div>
+        <div class="field">
+          <label for="busca-veiculo">Buscar veículo</label>
+          <input type="search" id="busca-veiculo" placeholder="Marca, modelo ou placa...">
+        </div>
+        <div id="veiculos-lista" class="vehicle-list"><p class="muted">Carregando estoque...</p></div>
+      </section>
+
+      <aside class="panel checkout-panel">
+        <div class="section-title"><span class="step">3</span><div><h2>Resumo e pagamento</h2><p>Confira os dados antes de concluir.</p></div></div>
+        <div id="veiculo-resumo" class="selected-vehicle empty-state">Nenhum veículo selecionado</div>
+        <div class="field">
+          <label for="valor_venda">Valor negociado (R$) *</label>
+          <input type="number" id="valor_venda" min="0.01" step="0.01" placeholder="0,00" required>
+        </div>
+        <div class="field">
+          <label for="forma_pagamento">Forma de pagamento *</label>
+          <select id="forma_pagamento" required>
+            <option value="">Selecione</option>
+            <option>À vista</option><option>PIX</option><option>Dinheiro</option>
+            <option>Cartão de crédito</option><option>Cartão de débito</option><option>Financiamento</option>
+          </select>
+        </div>
+        <div class="total-line"><span>Total da venda</span><strong id="total-venda">R$ 0,00</strong></div>
+        <button type="button" class="btn-primary btn-finish" id="btn-finalizar" disabled>Finalizar venda</button>
+        <p id="mensagem" class="message" role="status"></p>
+        <p class="secure-note">Ao finalizar, a venda será registrada no histórico e o veículo será retirado do estoque automaticamente.</p>
+      </aside>
+    </div>
+  </main>
+  <script src="../js/pdv.js"></script>
+</body>
+</html>

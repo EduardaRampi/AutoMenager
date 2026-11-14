@@ -2,12 +2,13 @@
 
 Sistema web de gerenciamento para concessionárias e revendas de veículos.
 
-🌐 Acesse o sistema: [AutoManager – Site oficial](https://automanager-opensource.netlify.app/)
-🚀 Versão: 1.1.0-alpha.1
+🌐 **Acesse o sistema:** [AutoManager – Site oficial](https://automanager-opensource.netlify.app/)
 
-O **AutoManager** é um projeto desenvolvido para facilitar o gerenciamento de operações de uma loja de veículos, reunindo informações de clientes, funcionários, veículos, estoque e vendas em um único sistema.
-  
-> **Status:** Em desenvolvimento.
+🚀 **Versão:** 2.0.0-alpha.1
+
+**Status:** Em desenvolvimento.
+
+O **AutoManager** é um sistema desenvolvido para facilitar o gerenciamento de operações de concessionárias e revendas de veículos, reunindo informações de clientes, funcionários, veículos, estoque e vendas em uma única plataforma.
 
 ## ✨ Funcionalidades
 
@@ -17,6 +18,7 @@ O **AutoManager** é um projeto desenvolvido para facilitar o gerenciamento de o
 - [x] Controle de estoque.
 - [x] Gerenciamento de funcionários.
 - [x] Registro e consulta de vendas.
+- [x] Ponto de Venda (PDV).
 - [ ] Testes completos do processo de venda.
 - [ ] Melhorias e novas funcionalidades.
 
@@ -60,37 +62,37 @@ AutoManager/
 
 Antes de começar, você precisará ter instalado:
 
-- Node.js
-- MySQL
-- Git
+- [Node.js](https://nodejs.org/)
+- [MySQL](https://www.mysql.com/)
+- [Git](https://git-scm.com/)
 
 ### 2. Clonar o repositório
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/EduardaRampi/AutoMenager.git
 ```
 
 Entre na pasta do projeto:
 
 ```bash
-cd AutoManager
+cd AutoMenager
 ```
 
 ### 3. Criar o banco de dados
 
 Abra o MySQL Workbench ou outra ferramenta de gerenciamento MySQL.
 
-Execute o script:
+Execute o script localizado em:
 
 ```text
 database/criar_database.sql
 ```
 
-Ele criará a estrutura do banco de dados utilizada pelo sistema.
+Esse arquivo contém a estrutura do banco de dados utilizada pelo sistema.
 
 ### 4. Configurar o backend
 
-Entre na pasta:
+Entre na pasta do backend:
 
 ```bash
 cd backend
@@ -104,23 +106,31 @@ npm install
 
 Crie uma cópia do arquivo `.env.example` com o nome `.env`.
 
-Configure as informações de conexão com seu banco MySQL.
+Configure as informações de conexão com seu banco de dados MySQL.
 
 ### 5. Iniciar o servidor
 
-Execute o comando de inicialização definido no `package.json` do backend.
+Execute o comando de inicialização configurado no `package.json` do backend.
+
+### 6. Acessar o sistema
+
+Com o backend e o banco de dados configurados, abra o frontend utilizando um servidor local ou acesse a versão publicada:
+
+[https://automanager-opensource.netlify.app/](https://automanager-opensource.netlify.app/)
 
 ## 🔐 Segurança
 
-As credenciais de acesso ao banco de dados são armazenadas em variáveis de ambiente.
-
-O arquivo `.env` não deve ser compartilhado ou publicado no GitHub.
+- As credenciais de acesso ao banco de dados são armazenadas em variáveis de ambiente.
+- O arquivo `.env` não deve ser compartilhado ou publicado no GitHub.
+- O arquivo `.env.example` deve conter apenas exemplos, nunca credenciais reais.
 
 ## 🚧 Status do desenvolvimento
 
-O AutoManager está atualmente na versão **1.0.0-alpha.1**.
+O AutoManager está atualmente na versão **2.0.0-alpha.1**.
 
-Esta versão representa uma etapa inicial do projeto, disponibilizada para testes, validação das funcionalidades e futuras melhorias.
+Esta versão representa uma etapa de desenvolvimento do projeto, disponibilizada para testes, validação das funcionalidades existentes e implementação de melhorias.
+
+Novas funcionalidades e atualizações poderão ser adicionadas conforme a evolução do sistema.
 
 ## 👩‍💻 Desenvolvimento
 
