@@ -4,7 +4,7 @@ Sistema web de gerenciamento para concessionárias e revendas de veículos.
 
 🌐 **Acesse o sistema:** [AutoManager – Site oficial](https://automanager-opensource.netlify.app/)
 
-🚀 **Versão:** 2.0.0-alpha.1
+🚀 **Versão:** 2.0.1-alpha.1
 
 **Status:** Em desenvolvimento.
 
@@ -126,7 +126,7 @@ Com o backend e o banco de dados configurados, abra o frontend utilizando um ser
 
 ## 🚧 Status do desenvolvimento
 
-O AutoManager está atualmente na versão **2.0.0-alpha.1**.
+O AutoManager está atualmente na versão **2.0.1-alpha.1**.
 
 Esta versão representa uma etapa de desenvolvimento do projeto, disponibilizada para testes, validação das funcionalidades existentes e implementação de melhorias.
 

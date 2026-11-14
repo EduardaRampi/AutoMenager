@@ -20,6 +20,13 @@ body {
     border-radius: 4px;
 }
 
+@font-face {
+    font-family: 'NotoSansLogo';
+    src: url('../assets/fonts/NotoSans-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
 /* SIDEBAR */
 
 .sidebar {
@@ -35,6 +42,8 @@ body {
 
 .logo {
     margin-bottom: 40px;
+    font-family: 'NotoSansLogo', sans-serif;
+    font-weight: 700;
 }
 
 .logo h2 {
